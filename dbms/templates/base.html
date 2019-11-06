@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>
+            Store Management System
+        </title>
+          <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+{% load static %}
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> 
+    </head>
+    <body class = "dashboard">
+         <div class="jumbotron text-center bg-dark">
+            <h1 class="display-4" style="color: beige; font-weight: bold;">
+                Manager Site
+            </h1>
+         </div>
+         <ul class="nav nav-pills nav-lg justify-content-center">
+             <li class ="nav-item">
+                 <a class = "nav-link" href ="products">Stock Management</a>
+             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="employee-management">Employee Management</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="log">Wage Calculation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="supplier">Supplier Management</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="supplier">Finances</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="supplier">Records</a>
+            </li>
+          </ul>
+          {% block content %}
+          {% endblock %}
+    </body>
+</html>

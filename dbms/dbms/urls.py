@@ -15,10 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView,TemplateView
+from manager_site.views import ProductView,SupplierView,SalesView,LogView,ProfileView,home_detail_view,manager_home_view,manager_emp_view,manager_signin_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',LoginView.as_view(template_name="registration/login.html"))
-
+    #path('',LoginView.as_view(template_name="registration/login.html")),
+   #path('accounts/profile/',ProfileView.as_view(template_name="base.html")),
+    path('manager-home/products',ProductView.as_view(template_name="products.html")),
+    #path('accounts/profile/sales',SalesView.as_view(template_name="sales.html")),
+    path('manager-home/supplier',SupplierView.as_view(template_name="supplier.html")),
+    #path('accounts/profile/log',LogView.as_view(template_name="log.html")),
+    path('',home_detail_view ),
+    path('manager-signin/',manager_signin_view ),
+    path('manager-home/',ProfileView.as_view(template_name="base.html")),
+    path('manager-home/employee-management/',ProductView.as_view(template_name="manager_emp.html")),
 ]

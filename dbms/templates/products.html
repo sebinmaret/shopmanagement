@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form class="form-control my-2 my-lg-0">
+  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+</form>
+<div class ="container-fluid" style="height:40vh;justify-content: center;   display: flex;align-items: center;">
+  <div class="jumbotron text-center" style = "background-color: aquamarine; opacity: 0.9;font-weight: bolder;">
+        <h2>Products</h2>
+
+{% load render_table from django_tables2 %}
+  {% render_table object_list %}
+  </div>
+</div>
+
+{% endblock %}

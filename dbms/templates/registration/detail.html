@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>
@@ -17,9 +18,12 @@
     </head>
 
 
+    <div class="container" style="height:100vh;justify-content: center; display: flex;align-items: center;;">
 
-    <div class="container" style="height:100vh;justify-content: center; display: flex;align-items: center;">
-        <div class="jumbotron text-center" style ="background-color:rgba(220, 161, 238, 0.85);">
+
+ 
+
+        <div class="jumbotron text-center" style ="background-color:rgba(153,153,153,0.9);">
         <h1 class="display-4">
                 Store Management System
         </h1>
@@ -27,14 +31,11 @@
         <body style = "background-image: url(https://cdn.pixabay.com/photo/2016/03/02/20/13/shopping-1232944_960_720.jpg);background-size: cover;">
         <!--div class="container"-->
         <!--div class="jumbotron text-center" style = "background-color: #e6e6ff;"-->
-        <p class ="lead"> Please Login to your Employee Account Below  </p>
-            <form method = 'post'>
-            {% csrf_token %}
-            {{form.as_p}}
-
-                <button type ="submit" class ="btn btn-primary btn-lg">Login</button>
-        </form>
-        <button onclick = "window.location.href='admin/';" type ="submit" class = "btn btn-secondary btn-lg">Click Here for Employee Management</button>
+        <!--p class ="lead"> Please Login to your Employee Account Below  </p-->
+           
+        <button onclick = "window.location.href='manager-signin/';" type ="submit" class = "btn btn-primary btn-lg ">Click Here for Manager Site</button>
+        <button onclick = "window.location.href='admin/';" type ="submit" class = "btn btn-success btn-lg">Click Here for Employee Site</button>
+        <button onclick = "window.location.href='admin/';" type ="submit" class = "btn btn-warning btn-lg">Click Here for Employee Sign In/ Sign Out</button>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
