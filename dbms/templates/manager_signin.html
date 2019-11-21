@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>
+    Manager|Login
+  </title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
@@ -65,26 +68,45 @@ span.psw {
   }
 }
 </style>
+<meta charset="utf-8">
+        <meta name ="viewport" content="width=device-width, initial-scale=1,shrink-to-fit =no">
+         <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> 
 </head>
-<body>
+<body style="background-color: #232F3E;">
 
-<h2>Login Form</h2>
 
+<div class="col-lg-12 col-md-12 col-sm-12  container" style="text-align: center; ">
+  <h2 style="color: #f1f1f1;">Manager Login</h2>
 <form action="." method="POST"> {% csrf_token %}
-  <div class="container">
-    <label for="uname"><b>Username</b></label>
+  
+  <div class="jumbotron col-lg-4 col-lg-offset-4 col-md-8 col-md-offset-2 col-sm-12" style="background-color: #37475A; margin-top: 40px;">
+    <label for="uname" style="color: #f1f1f1;"><b>Username</b></label>
     <input type="text" placeholder="Enter Username" name="uname" required>
 
-    <label for="psw"><b>Password</b></label>
+    <label for="psw" style="color: #f1f1f1;"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="psw" required>
         
     <button type="submit">Login</button>
+    <br>
+    <br>
+    <button type="button" class ="cancelbtn" style="background-color: #e0a458;" onclick = "window.location.href='/';" >Back to Home</button>
   </div>
 
-  <div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="cancelbtn" onclick = "window.location.href='http://127.0.0.1:8000/home/';" >Back to Home</button>
-  </div>
 </form>
-
+</div>
+{% if error1 %}
+  <br>
+  <div class="alert alert-danger" role="alert">
+  Incorrect Login Credentials.
+  </div>
+{% endif %}
 </body>
 </html>

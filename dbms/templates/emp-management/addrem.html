@@ -1,0 +1,36 @@
+{% extends 'emp-manage-base.html' %}
+
+{%block content %}
+<style> 
+        body { 
+            animation: fadeInAnimation ease 0.5s; 
+            animation-iteration-count: 1; 
+            animation-fill-mode: forwards; 
+        } 
+        @keyframes fadeInAnimation { 
+            0% { 
+                opacity: 0; 
+            } 
+            100% { 
+                opacity: 1; 
+            } 
+        } 
+</style> 
+
+<div class ="container-fluid body" style="height:70vh;justify-content: center;   display: flex;align-items: center;">
+        <div class="jumbotron text-center body" style = "background-color:#4d80b3; opacity: 0.9;font-weight: bolder;">
+            <h2 style="color: floralwhite;">Add Employee</h2>
+            {% if error == 1%}
+            <div class="alert alert-danger alert-dismissible" role="alert">Employee add failed!</div>
+            {% elif error == 0%}
+            <div class="alert alert-success alert-dismissible" role="alert">Employee added succesfully!</div>
+            {% endif %}
+            <form method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class = "btn btn-lg btn-success glyphicon glyphicon-plus">Add</button>
+            </form>
+
+        </div>      
+</div>
+{%endblock%}

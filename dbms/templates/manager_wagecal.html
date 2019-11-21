@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+                Wage Calculation
+        </title>
+        <meta charset="utf-8">
+        <meta name ="viewport" content="width=device-width, initial-scale=1,shrink-to-fit =no">
+         <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> 
+    </head>
+
+
+    
+    <body style="background-color: #fec8d8;">
+            <div class="jumbotron text-center bg-dark" style="opacity: 0.8;">
+                    <h1 class="display-4" style="color: beige; font-weight: bold; justify-content: center; align-items:center;">
+                        Wage Calculation
+                <button class = "btn btn-lg btn-warning glyphicon glyphicon-home" style="float: right ;" onclick="window.location.href='/manager-home/';">Home</button>
+                </div>
+            </h1>
+        <br>
+        {% if error1 %}
+            <div class="alert alert-danger" role="alert">
+                Employee ID Entered Does Not Exist!
+            </div>
+        {% endif %}
+        <div class="col-lg-12 col-sm-12 col-md-12" style="padding-top: 5em;text-align: center">
+        
+
+        <button class="btn btn-success" style="border-style: solid;" type="radio" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1" >
+            <h4 class= "glyphicon glyphicon-piggy-bank" style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;font-weight: bold;"> Calculate Wage </h4>
+        </button>
+        <br>
+        <br>
+        <br>
+        <div class = "container-fluid" style="justify-content: center; display:flex;align-items:center">
+        <div class="collapse jumbotron" id="collapse1" style="background-color: #957dad; opacity: 0.9;">
+        <!-- <div class="collapse" id="collapse1"> -->
+            <div >
+                <form action="." method="POST"> {% csrf_token %}
+                <div >
+                    <label for="e_id"><b>Employee ID: </b></label>
+                    <input type="text" placeholder="Enter Employee ID" name="e_id" required>
+                    <br>
+                    <br>
+                    <label for="sdate"><b>Start Date: </b></label>
+                    <input type="text" placeholder="Enter Start Date" name="sdate" required>
+                    <br>
+                    <br>
+                    <label for="edate"><b>End Date: </b></label>
+                    <input type="text" placeholder="Enter End Date" name="edate" required>
+                    <br>
+                    <br>
+                    <button type="submit" class="btn btn-info">Calculate</button>
+                    <br>
+                    <br>
+                </div>
+                </form>
+            </div>
+            </div>
+        </div>
+         <br>
+        
+    </div>    
+    <div class="col-lg-12 col-md-12 col-sm-12" style="padding-left: 2em;">
+    {% if value is not None %}
+        <br>
+        <div class="alert alert-success" role="alert">
+        The Total Hours Worked : {{ total_hrs }}
+        <br>    
+        The calculated Wage of Employee with Emp ID {{ empid }} from {{ sdate1 }} to {{ edate1 }} is : Rs {{ value }} 
+        </div>
+        
+    {% endif%}  
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body> 
+</html>

@@ -1,0 +1,83 @@
+{% extends 'emp-manage-base.html' %}
+
+{%block content %}
+<style> 
+        body { 
+            animation: fadeInAnimation ease 0.5s; 
+            animation-iteration-count: 1; 
+            animation-fill-mode: forwards; 
+        } 
+        @keyframes fadeInAnimation { 
+            0% { 
+                opacity: 0; 
+            } 
+            100% { 
+                opacity: 1; 
+            } 
+        } 
+</style> 
+
+<div class="container-fluid body" style="justify-content: center; display: flex; align-items: center;">
+<form action="" method="POST">
+    {% csrf_token %}
+    <label for ="e_id"><b>Employee ID</b></label>
+    <input type = "number" placeholder="Enter Employee ID" value = "{{id}}" name = "e_id" required>
+    <button type="submit" class="btn btn-primary">Go </button>
+</form>
+</div>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}<button type="submit" class = "btn btn-primary">Add</button>
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% if error %}
+<div class="alert alert-danger alert-dismissible" role="alert">Employee ID Doesnt Exist</div>
+{% endif %}
+{% if enter%}
+
+<div class ="container-fluid body" style="height:70vh;justify-content: center;   display: flex;align-items: center;">
+    <div class="jumbotron text-center body" style = "background-color:#4d80b3; opacity: 0.9;font-weight: bolder;">
+        <h2 style="color: floralwhite;">Edit or Delete</h2>
+            {% for row in obj %}
+            <form action="" method="POST">
+                {% csrf_token %}
+                <label for ="eid" style="color: white;"><b>Employee ID:</b></label>
+                <input type = "number" name = "eid" value = {{row.e_id}}>
+                <br></br>
+
+                <label for ="f_name" style="color: white;"><b>First Name:</b></label>
+                <input type = "string" name = "f_name" value = {{row.f_name}} >
+                <br></br>
+
+                <label for ="l_name" style="color: white;"><b>Last Name:</b></label>
+                <input type = "string" name = "l_name" value= {{row.l_name}} >
+                <br></br>
+
+                <label for ="wage" style="color: white;"><b>Wage:</b></label>
+                <input type = "number" name = "wage" value= {{row.wage}} >
+                <br></br>
+
+                <label for ="contact" style="color: white;"><b>Contact:</b></label>
+                <input type = "number" name = "contact" value={{row.contact}} >
+                <br></br>
+
+                <label for ="address" style="color: white;"><b>Address:</b></label>
+                <input type = "string" name = "address" value={{row.address}} >
+                <br></br>
+                
+
+
+            <button name = "Delete" type="submit" class = "btn btn-warning glyphicon glyphicon-edit">Edit Employee</button>
+            <button name = "Delete" type="submit" class = "btn btn-danger glyphicon glyphicon-trash">Remove Employee</button>
+            </form>
+        {% endfor %}
+        </div>
+</div>
+
+{% endif %}
+<br/><br/>
+
+
+{%endblock%}

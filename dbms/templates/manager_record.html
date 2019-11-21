@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Supplier Management
+        </title>
+        <meta charset="utf-8">
+        <meta name ="viewport" content="width=device-width, initial-scale=1,shrink-to-fit =no">
+         <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> 
+    </head>
+
+
+    
+    <body style="background-color: #D3EEFF;">
+            <div class="jumbotron text-center bg-dark" style="opacity: 0.8;">
+                    <h1 class="display-4" style="color: beige; font-weight: bold; justify-content: center; align-items:center;">
+                        Records 
+                <button class = "btn btn-lg btn-warning glyphicon glyphicon-home" style="float: right ;" onclick="window.location.href='/manager-home/';">Home</button>
+                </div>
+
+        <div class="col-lg-12 col-sm-12 col-md-12" style="padding-top: 5em;text-align: center">
+
+
+        <button class="btn btn-success" style="border-style: solid;" type="radio" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1" >
+            <h4 style="font-weight: bold;" class="glyphicon glyphicon-eye-open"> View Sales Record </h4>
+        </button>
+        <br>
+        <br>
+        <br>
+        <div class = "container-fluid" style="justify-content: center; display:flex;align-items:center">
+                <div class="collapse jumbotron" id="collapse1" style="background-color: #85A8BA;">
+            <div >
+                <form action="." method="POST"> {% csrf_token %}
+                <div >
+                    <label for="sdate"><b>Start Date: </b></label>
+                    <input type="text" placeholder="Enter start Date" name="sdate" required>
+                    <br>
+                    <br>
+                    <label for="edate"><b>End Date: </b></label>
+                    <input type="text" placeholder="Enter End Date" name="edate" required>
+                    <br>
+                    <br>
+                    <button type="submit" class="btn btn-success">View Records</button>
+                    <br>
+                    <br>
+                </div>
+                </form>
+            </div>
+                </div>
+        </div>
+         <br>
+        <button class="btn btn-warning" style="border-style: solid;" type="radio" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2" >
+            <h4 style="font-weight: bold;" class="glyphicon glyphicon-eye-open"> View Log Record </h4>
+        </button>
+        <br>
+        <br>
+        <br>
+        <div class = "container-fluid" style="justify-content: center; display:flex;align-items:center">
+                <div class="collapse jumbotron" id="collapse2" style="background-color: #85A8BA;">
+            <div >
+                <form action="." method="POST"> {% csrf_token %}
+                    <div >
+                    <label for="sdate1"><b>Start Date: </b></label>
+                    <input type="text" placeholder="Enter start Date" name="sdate1" required>
+                    <br>
+                    <br>
+                    <label for="edate1"><b>End Date: </b></label>
+                    <input type="text" placeholder="Enter End Date" name="edate1" required>
+                    <br>
+                    <br>
+                    <button type="submit" class="btn btn-success">View Records</button>
+                    </div>
+                 </form>
+            </div>
+</div>
+        </div>
+    </div>    
+    <div class="col-lg-12 col-md-12 col-sm-12" style="padding-left: 2em;">
+    {% if value %}
+    <br>
+        <h3 style=" text-decoration: underline; color: rgb(64,64,64); "> Sales Record: </h3>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col"> Record ID </th>
+                    <th scope="col"> Date </th>
+                    <th scope="col"> Total Price </th>
+                    <th scope="col"> Quantity </th>
+                    <th scope="col"> Product ID </th>
+
+                </tr>
+              </thead>
+                <tbody>
+                {% for row in object %}
+                {% if row.date >= startdate and row.date <= enddate %}
+                <tr>
+                    <th class="table-success" scope="row"> {{ row.r_id }} </th>
+                    <td class="table-success"> {{ row.date }} </td>
+                    <td class="table-success"> {{ row.total_price }} </td>
+                    <td class="table-success"> {{ row.quantity }} </td>
+                    <td class="table-success"> {{ row.p_id_id }}  </td>
+                    
+                </tr>
+                {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+    {% endif%}  
+    {% if value1 %}
+    <br>
+        <h3 style=" text-decoration: underline; color: rgb(64,64,64); "> Log Record: </h3>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col"> LOG NUMBER </th>
+                    <th scope="col"> DATE </th>
+                    <th scope="col"> SIGN IN </th>
+                    <th scope="col"> SIGN OUT </th>
+                    <th scope="col">EMPLOYEE ID </th>
+                </tr>
+              </thead>
+                <tbody>
+                {% for row in object %}
+                {% if row.date >= startdate and row.date <= enddate %}
+                <tr>
+                    <th class="table-success" scope="row"> {{ row.id }} </th>
+                    <td class="table-success"> {{ row.date }} </td>
+                    <td class="table-success"> {{ row.sign_in }} </td>
+                    <td class="table-success"> {{ row.sign_out }} </td>
+                    <td class="table-success"> {{ row.e_id_id }}  </td>
+                    
+                </tr>
+                {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+    {% endif%} 
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body> 
+</html>

@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Stock Management Modify
+        </title>
+        <meta charset="utf-8">
+        <meta name ="viewport" content="width=device-width, initial-scale=1,shrink-to-fit =no">
+         <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> 
+        <script src="https://kit.fontawesome.com/05a245a585.js" crossorigin="anonymous"></script>
+        <style>
+        .makeright {
+            float: right;
+        }
+        
+        </style>
+    </head>
+
+
+    
+    <body style="background-color: beige;">
+        <nav class="navbar-light bg-dark " style="text-align: left; justify-content: left ;display: flex;">
+            <button type="button" class="btn btn-outline-info" onclick="window.location.href='/manager-home/stock-management/';" style="font-size: 1.3em;">
+                 < Back
+            </button>
+            <p class="text-light" style="font-size: 2.7em ; padding-left: 0.5em; padding-top: 0.2em;">Stock Management</p>
+        </nav>
+
+        {% if error1 %}
+        <br>
+        <div class="alert alert-danger" role="alert">
+            The Product ID Does Not Exist!
+        </div>
+        {% endif %}
+        {% if error2 %}
+        <br>
+        <div class="alert alert-danger" role="alert">
+            The Product ID Exists!
+        </div>
+        {% endif %}
+        {% if success1 %}
+        <br>
+        <div class="alert alert-success" role="alert">
+            New Product has been added!
+
+        </div>
+        {% endif %}
+        {% if success2 %}
+        <br>
+        <div class="alert alert-success" role="alert">
+            Stocks Update Successful!
+        </div>
+        {% endif %}
+
+        <div class="col-lg-12 col-sm-12 col-md-12" style="padding-top: 5em;text-align: center">
+
+
+        <!--h3 style="font-weight: bold; ;">Update Existing Stocks </h3>
+        <br>
+		<form action="." method="POST"> {% csrf_token %}
+		    <div >
+		    <label for="p_id"><b>Product ID: </b></label>
+		    <input type="number" placeholder="Enter Supplier ID" name="p_id" required>
+            <br>
+            <br>
+            <label for="qty"><b>Restock Quantity </b></label>
+            <input type="text" placeholder="Enter Address" name="qty" required>
+            <br>
+            <br>
+            <label for="date"><b>Expiry Date </b></label>
+            <input type="text" placeholder="Enter Contact No" name="date" required>
+            <br>
+            <br>
+		    <button type="submit">Submit</button>
+            <br>
+            <br>
+            </div>
+        </form>
+        </div-->    
+        
+
+        <button class="btn btn-success" style="border-style: solid;" type="radio" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1" >
+            <h4 style="font-weight: bold;"> Update Existing Stocks </h4>
+        </button>
+        <br>
+        <br>
+        <br>
+        <div class = "container-fluid" style="justify-content: center; display:flex;align-items:center">
+        <div class="collapse jumbotron bg-dark" id="collapse1" style="opacity: 0.9;" >
+            <div >
+                <form action="." method="POST"> {% csrf_token %}
+                <div >
+                    <label for="p_id" style="color:floralwhite;"><b>Product ID: </b></label>
+                    <input type="number" placeholder="Enter Product ID" name="p_id" required>
+                    <br>
+                    <br>
+                    <label for="qty" style="color: floralwhite;"><b>Restock Quantity </b></label>
+                    <input type="text" placeholder="Enter Restock Quantity" name="qty" required>
+                    <br>
+                    <br>
+                    <label for="date" style="color: floralwhite;"><b>Expiry Date </b></label>
+                    <input type="text" placeholder="Enter Expiry Date" name="date">
+                    <br>
+                    <br>
+                    <button type="submit" class = "btn btn-info glyphicon glyphicon-repeat aria-hidden=true">Update</button>
+                    <br>
+                    <br>
+                </div>
+                </form>
+            </div>
+            
+        </div>
+        </div>
+
+        <!--h3 style="font-weight: bold;"> REMOVE Supplier </h3-->
+        <br>
+        <button class="btn btn-warning" style="border-style: solid;" type="radio" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2" >
+            <h4 style="font-weight: bold; "> Add New Product </h4>
+        </button>
+        <br>
+        <br>
+        <br>
+        <div class = "container-fluid" style="justify-content: center; display:flex;align-items:center">
+        <div class="collapse jumbotron bg-dark" id="collapse2" style="opacity: 0.9;">
+            <div >
+                <form action="." method="POST"> {% csrf_token %}
+                    <div >
+                    <label for="p_id1" style="color: floralwhite;"><b>Product ID: </b></label>
+                    <input type="number"  placeholder="Product ID" name="p_id1" required>
+                    <br>
+                    <br>
+                    <label for="qty1" style="color: floralwhite;"><b>Quantity: </b></label>
+                    <input type="number" placeholder="Quantity" name="qty1" required>
+                    <br>
+                    <br>
+                    <label for="price1" style="color: floralwhite;"><b>Price : </b></label>
+                    <input type="number" placeholder="Price" name="price1"  step="0.01" required>
+                    <br>
+                    <br>
+                    <label for="typE1" style="color: floralwhite;"><b>Type: </b></label>
+                    <input type="text" placeholder="Type" name="typE1" required>
+                    <br>
+                    <br>
+                    <label for="comp1" style="color: floralwhite;"><b>Company: </b></label>
+                    <input type="text" placeholder="Company" name="comp1" required>
+                    <br>
+                    <br>
+                    <label for="cat1" style="color: floralwhite;"><b>Category: </b></label>
+                    <input type="text" placeholder="Category" name="cat1" required>
+                    <br>
+                    <br>
+                    <label for="s_id1" style="color: floralwhite;"><b>Supplier ID: </b></label>
+                    <input type="number" placeholder="Enter Supplier ID" name="s_id1" required>
+                    <br>
+                    <br>
+                    <label for="exp1" style="color: floralwhite;"><b>Expiry Date: </b></label>
+                    <input type="text" placeholder="Enter Expiry Date" name="exp1">
+                    <br>
+                    <br>
+
+                    <button type="submit" class="btn btn-danger glyphicon glyphicon-plus aria-hidden=true">Add</button>
+                    </div>
+                 </form>
+            </div>
+            
+        </div>
+        </div>  
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body> 
+</html>

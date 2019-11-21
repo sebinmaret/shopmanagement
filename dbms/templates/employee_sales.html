@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Employee|Sales
+        </title>
+        <meta charset="utf-8">
+        <meta name ="viewport" content="width=device-width, initial-scale=1,shrink-to-fit =no">
+         <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> 
+    </head>
+
+
+    
+    <body style="background-color: #3e505b;">
+        <nav class="navbar-light bg-dark " style="text-align: left; justify-content: left ;display: flex;">
+            <button type="button" class="btn btn-outline-info" onclick="window.location.href='/';" style="font-size: 1.3em;">
+                 < Back
+            </button>
+            <p class="text-light" style="font-size: 2.7em ; padding-left: 0.5em; padding-top: 0.2em;">Sales Manager</p>
+        </nav>
+
+        {% if success1 %}
+        <br>
+        <div class="alert alert-success" role="alert">
+            Item has been added to Cart!
+
+        </div>
+        {% endif %}
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-6" style=" "> <h3 style="font-weight: bold; color: white;"> Shopping Cart </h3></div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-6" style="text-align: right;   padding: 0.6em;">
+                <button type="button" class="btn btn-warning" onclick="window.location.href='/employee-home/sales/view/';" style="font-size: 1.3em; ">
+                    View Products list >
+                </button>
+            </div>
+        </div>
+        <div class="col-lg-12 col-sm-12 col-md-12 mh-100 table-responsive" style="padding-top: 1em;">
+
+        
+        
+            <br>
+            <table class="table table-bordered ">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col"> Products ID </th>
+                    <th scope="col"> Product Name </th>
+                    <th scope="col"> Company </th>
+                    <th scope="col"> Category </th>
+                    <th scope="col"> Quantity </th>
+                    <th scope="col"> Price Per Unit </th>
+                    <th scope="col"> Total Price </th>
+                </tr>
+              </thead>
+                <tbody>
+                {% if not table %}
+                
+                    <tr>
+                        <th class="table-warning" scope="row"> No Items to Show </th>
+                        <td class="table-warning"> </td>
+                        <td class="table-warning"> </td>
+                        <td class="table-warning"> </td>
+                        <td class="table-warning"> </td>
+                        <td class="table-warning"> </td>
+                        <td class="table-warning"> </td>
+                    </tr>
+                {% endif %}
+                {% if table %}
+                {% for row in table %}
+                <tr>
+                    <th class="table-success" scope="row"> {{ row.p_id }} </th>
+                    <td class="table-success"> {{ row.p_type }} </td>
+                    <td class="table-success"> {{ row.company }} </td>
+                    <td class="table-success"> {{ row.category }} </td>
+                    <td class="table-success"> {{ row.quantity }}  </td>
+                    <td class="table-success"> {{ row.price }}  </td>
+                    <td class="table-success"> {{ row.total_price }}  </td>
+                    
+                </tr>
+                {% endfor %}
+                {% endif %}
+                    <tr>
+                        <th class="table-dark" scope="row" colspan="6"> Grand Total </th>
+                        <!--td class="table-secondary"> </td>
+                        <td class="table-secondary"> </td>
+                        <td class="table-secondary"> </td>
+                        <td class="table-secondary"> </td>
+                        <td class="table-secondary"> </td-->
+                        <td class="table-dark"> {{ gtotal }} </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <br>
+            <br>
+        </div>
+        <div class="col-lg-12 col-sm-12 col-md-12" style="padding-top: 1em;">
+
+		<form action="." method="POST"> {% csrf_token %}
+		  <div >
+		    <label for="p_id" style="color: white;"><b>Product ID:</b></label>
+		    <input type="text" placeholder="Enter Product ID" name="p_id" required>
+            <label for="qty" style="color: white;"><b>Quantity:</b></label>
+            <input type="text" placeholder="Enter Product Quantity" name="qty" required>
+		    <button type="submit" class="btn btn-primary">Submit</button>
+		    <br>
+            <br>
+             </div>
+        </form>
+            {% if error1 %}
+            <br>
+            <div class="alert alert-danger" role="alert">
+            Invalid Product ID Entered
+            </div>
+            {% endif %}
+
+            {% if error2 %}
+            <br>
+            <div class="alert alert-danger" role="alert">
+            Insufficient Stock for the requested Product
+            </div>
+            {% endif %}
+        <br>
+        <form action="." method="POST"> {% csrf_token %}
+            <div style="text-align: center;">
+                <button type="submit" class="btn btn-success">End Sale</button>
+            </div>
+        </form>
+        <br>
+		    <!--p style="color: grey; padding-left: 5.7em;">(Enter "*" to display all supplier info)</p-->
+		    
+
+            {% if total1 %}
+            <br>
+            <div class="alert alert-info" role="alert"><h5>
+            Total Amount To Be Paid : <b>Rs.{{ total1 }}/-</b></h5>
+            </div>
+            {% endif %}
+		    
+		 
+        
+		<br>
+		<br>
+    </div>        
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body> 
+</html>

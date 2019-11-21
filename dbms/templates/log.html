@@ -1,5 +1,57 @@
-{% extends 'base.html' %}
-{% block content %}
-{% load render_table from django_tables2 %}
-  {% render_table object_list %}
-{% endblock %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Store Management System
+        </title>
+        <meta charset="utf-8">
+        <meta name ="viewport" content="width=device-width, initial-scale=1,shrink-to-fit =no">
+         <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> 
+    </head>
+
+
+    
+    <body style="background-color:beige">
+            <div class="jumbotron text-center bg-dark" style="opacity: 0.8">
+                <h1 class="display-4" style="color:#ffd24d; font-weight: bold;">
+                    Employee Log
+                    <button class = "btn btn-lg btn-warning glyphicon glyphicon-home" style="float: right ;" onclick="window.location.href='/';">Home</button>
+                </h1>
+                <!--button type="button" class="btn btn-outline-info" style  ="justify-content:left;display :flex: 1.3em;" onclick="window.location.href='javascript.history.back()';">
+                    Back
+               </button-->
+             </div>
+      <div class ="container-fluid" style="height:50vh;justify-content: center;   display: flex;align-items: center;">
+            <div class="jumbotron text-center" style = "background-color:darkcyan; opacity:0.9 ;font-weight: bolder;">
+                <h2> LOG</h2>
+                {%if error_id == 1 %}
+                <div>
+                    Employee ID Does not Exist!
+                </div>
+                {% elif error_id == 13 %}
+                <div>
+                    Log Entry Succesful
+                </div>
+                {% elif error_id == 2%}
+                <div>
+                    ERROR ID: 2
+                </div>
+                {% endif %}
+                <form action="" method="POST"> {% csrf_token %}
+                    <div >
+                    <label for="e_id"><b>Employee ID</b></label>
+                    <input type="number" placeholder="Enter Employee ID" name="e_id" required>
+                <button name = "In" type="submit" class = "btn btn-primary">Sign In</button>
+                <button name = "Out" type="submit" class = "btn btn-danger"> Sign Out</button>
+                <br>
+            </form>
+            </div>
+    </div>

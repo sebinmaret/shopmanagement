@@ -1,0 +1,105 @@
+{% extends 'emp-manage-base.html' %}
+
+{% load static %}
+s
+
+{% block content %} 
+<style> 
+        body { 
+            animation: fadeInAnimation ease 0.5s; 
+            animation-iteration-count: 1; 
+            animation-fill-mode: forwards; 
+        } 
+        @keyframes fadeInAnimation { 
+            0% { 
+                opacity: 0; 
+            } 
+            100% { 
+                opacity: 1; 
+            } 
+        } 
+</style> 
+
+<h3 style="font-weight: bold;"> View Employee Info </h3>
+<br>
+<form action="" method="POST"> {% csrf_token %}
+<label for="eid"><b>Employee ID</b></label>
+<input type="number" placeholder="Enter Employee ID" name="eid">
+
+
+
+<form action="" method="POST"> {% csrf_token %}
+<label for="fname"><b>First name</b></label>
+<input type="string" placeholder="Enter First Name" name="fname">
+
+
+<form action="" method="POST"> {% csrf_token %}
+<label for="lname"><b>Last Name</b></label>
+<input type="string" placeholder="Enter Last name" name="lname">
+
+
+<form action="" method="POST"> {% csrf_token %}
+<label for="wage"><b>Wage</b></label>
+<input type="number" placeholder="Enter wage" name="wage">
+
+<button class = "btn btn-info glyphicon glyphicon-search" type="submit">Search</button>
+
+<!--form action="" method="POST"> {% csrf_token %}
+<label for="add"><b>Address</b></label>
+<input type="string" placeholder="Enter address" name="add">
+<button class = "btn btn-info glyphicon glyphicon-search" type="submit">Search</button-->
+
+
+<p style="color: whitesmoke; padding-left: 5.7em;">(Enter 0 to display all employee info)</p>
+{% if enter %}
+<br>
+<br>
+<table class="table table-bordered">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col"> Employee_ID </th>
+    <th scope="col"> First Name </th>
+    <th scope="col"> Last Name </th>
+    <th scope="col"> Wage </th>
+    <th scope="col"> Contact </th>
+    <th scope="col"> Address </th>
+
+  </tr>
+  </thead>
+  
+    {% if not table %}
+    <tbody>
+      <tr>
+        <th class="table-danger" scope="row"> Entry Not Found </th>
+        <td class="table-danger"> </td>
+        <td class="table-danger"> </td>
+        <td class="table-danger"> </td>
+        <td class="table-danger"> </td>
+      </tr>
+    </tbody>
+    {% endif %}
+  <tbody>
+  {% for row in table %}
+  <tr>
+    <th class="table-success" scope="row"> {{ row.e_id }} </th>
+    <td class="table-success"> {{ row.f_name }} </td>
+    <td class="table-success"> {{ row.l_name }} </td>
+    <td class="table-success"> {{ row.wage }} </td>
+    <td class="table-success"> {{ row.contact}}  </td>
+    <td class="table-success"> {{ row.address}}  </td>
+    
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+</div>
+</form>
+<br>
+<br>
+<br>
+<!--label><b> To ADD / REMOVE Employee : </b></label>
+<button type="button" class="btn-info btn" onclick="window.location.href='';" >Click Here</button-->
+
+{% endblock %}

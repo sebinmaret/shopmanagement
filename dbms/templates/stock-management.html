@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Stock Management
+        </title>
+        <meta charset="utf-8">
+        <meta name ="viewport" content="width=device-width, initial-scale=1,shrink-to-fit =no">
+         <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> 
+    </head>
+
+
+    
+    <body style="background-color:#f7ebc3" >
+            <div class="jumbotron text-center bg-dark" style="opacity: 0.8;">
+                    <h1 class="display-4" style="color: beige; font-weight: bold; justify-content: center; align-items:center;">
+                        Stock Management
+                <button class = "btn btn-lg btn-warning glyphicon glyphicon-home" style="float: right ;" onclick="window.location.href='/manager-home/';">Home</button>
+                </div>
+            </h1>
+        <div class="col-lg-12 col-sm-12 col-md-12" style="padding-top: 1em;">
+
+
+        <h3 style="font-weight: bold;"> View Current Stock </h3>
+        <br>
+		<form action="." method="POST"> {% csrf_token %}
+		  <div >
+		    <label for="category"><b>CATEGORY</b></label>
+		    <input type="text" placeholder="Enter Category" name="category" required>
+		    <button  class ="btn btn-info glyphicon glyphicon-search type="submit">Search</button>
+		    <br>
+		    <p style="color:grey">(Enter "*" to display stock info for all products)</p>
+		    {% if table %}
+		    <br>
+		    <br>
+		    <table class="table table-bordered">
+		    	<thead class="thead-dark">
+		    	<tr>
+		    		<th scope="col"> Product_ID </th>
+		    		<th scope="col"> Total Quantity </th>
+                    <th scope="col"> Quantity/Exp </th>
+		    		<th scope="col"> Price </th>
+		    		<th scope="col"> Type </th>
+                    <th scope="col"> Category </th>
+                    <th scope="col"> Company </th>
+                    <th scope="col"> Supplier ID </th>
+                    <th scope="col"> Expiry Date </th>                    
+		    	</tr>
+		  	  </thead>
+		  	  <tbody>
+		    	{% for row in table %}
+		    	<tr>
+		    		<th class="table-success" scope="row"> {{ row.p_id }} </th>
+		    		<td class="table-success"> {{ row.quantity }}  </td>
+                    <td class="table-success"> {{ row.expqty }}  </td>
+		    		<td class="table-success"> {{ row.price }} </td>
+                    <td class="table-success"> {{ row.typE }} </td>
+                    <td class="table-success"> {{ row.category }} </td>
+                    <td class="table-success"> {{ row.company }} </td>
+                    <td class="table-success"> {{ row.s_id_id }} </td>
+                    <td class="table-success"> {{ row.date }} </td>
+		    	</tr>
+		    	{% endfor %}
+		    	</tbody>
+		    </table>
+		    {% endif %}
+		    
+		  </div>
+		</form>
+		<br>
+		<br>
+		<br>
+
+            <button type="button"  class ="btn  btn-warning glyphicon glyphicon-eject aria-hidden=true" onclick="window.location.href='/manager-home/stock-management/modify';" >Click Here to update stocks</button>
+            
+        <br>
+        
+
+            <!--div class="col-lg-4 col-sm-12 col-md-4" style="padding: 0.4em;text-align: center;">
+                <div class="card ">
+                    <img class="card-img-top" src="/images/pathToYourImage.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Employee Management</h4>
+                        <p class="card-text">
+                        Some quick example text to build on the card title
+                        and make up the bulk of the card's content.
+                        </p>
+                        <a href="http://127.0.0.1:8000/manager-home/employee-management/" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 col-md-4" style="padding: 0.4em; text-align: center;">
+                <div class="card ">
+                    <img class="card-img-top" src="/images/pathToYourImage.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Wage Calculation</h4>
+                        <p class="card-text">
+                        Some quick example text to build on the card title
+                        and make up the bulk of the card's content.
+                        </p>
+                        <a href="#!" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 col-md-4" style="padding: 0.4em; text-align: center;">
+                <div class="card ">
+                    <img class="card-img-top" src="/images/pathToYourImage.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Supplier Mangement</h4>
+                        <p class="card-text">
+                        Some quick example text to build on the card title
+                        and make up the bulk of the card's content.
+                        </p>
+                        <a  href="http://127.0.0.1:8000/manager-home/supplier-management/" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 col-md-4" style="padding: 0.4em; text-align: center;">
+                <div class="card ">
+                    <img class="card-img-top" src="/images/pathToYourImage.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Stock Management</h4>
+                        <p class="card-text">
+                        Some quick example text to build on the card title
+                        and make up the bulk of the card's content.
+                        </p>
+                        <a href="#!" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 col-md-4" style="padding: 0.4em;text-align: center;">
+                <div class="card ">
+                    <img class="card-img-top" src="/images/pathToYourImage.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Finances</h4>
+                        <p class="card-text">
+                        Some quick example text to build on the card title
+                        and make up the bulk of the card's content.
+                        </p>
+                        <a href="#!" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 col-md-4" style="padding: 0.4em; text-align: center;">
+                <div class="card ">
+                    <img class="card-img-top" src="/images/pathToYourImage.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Records</h4>
+                        <p class="card-text">
+                        Some quick example text to build on the card title
+                        and make up the bulk of the card's content.
+                        </p>
+                        <a href="#!" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div-->
+        </div>        
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body> 
+</html>

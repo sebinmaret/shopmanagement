@@ -11,11 +11,11 @@ class Employee(models.Model):
 
 
 class LogRecord(models.Model):
-    log_num = models.IntegerField('Log Number',primary_key=True)
-    sign_out = models.TimeField('Sign Out')
-    date = models.DateField('Date')
-    sign_in = models.TimeField('Sign in')
-    e_id = models.ForeignKey('Supplier',on_delete = models.CASCADE)
+    
+    sign_out = models.CharField('Sign Out', max_length=5,null=True)
+    date = models.CharField('Date',max_length=10)
+    sign_in = models.CharField('Sign in', max_length=5)
+    e_id = models.ForeignKey('Employee',on_delete = models.CASCADE)
 
 
 class Supplier(models.Model):
@@ -32,27 +32,35 @@ class SupplierCat(models.Model):
         unique_together= ['category','s_id']
 
 class Products(models.Model):
-    p_id = models.IntegerField('Product ID',primary_key=True,unique=True)
-    quantity = models.IntegerField('Quantity')
-    price  = models.FloatField('Price')
+    p_id = models.IntegerField('Product ID',primary_key=True)
+    quantity = models.IntegerField('Quantity',)
+    price  = models.FloatField('Price',)
     typE = models.CharField('Type',max_length=20)
     company = models.CharField('Company',max_length=30)
     category = models.CharField('Category',max_length=30)
     s_id = models.ForeignKey('Supplier',on_delete = models.CASCADE)
 
 class ExpiryDetails(models.Model):
-    p_id = models.ForeignKey('Products',on_delete = models.CASCADE)
-    date = models.DateField('Date')
+    
+    date = models.CharField('Date',max_length=10,null=True)
     quantity = models.IntegerField('Quantity')
-
+    p_id = models.ForeignKey('Products',on_delete = models.CASCADE)
     class Meta:
-        unique_together=['p_id','date']
+        unique_together=['date','p_id']
 
 class SalesRecord(models.Model):
     r_id = models.IntegerField('Record ID',primary_key=True)
-    date = models.DateField('Date')
+    date = models.CharField('Date',max_length=10)
     total_price = models.IntegerField('Total Price')
     quantity= models.IntegerField('Quantity')
-    p_id = models.ForeignKey('Products',on_delete = models.CASCADE)
+    p_id = models.ForeignKey('Products',on_delete = models.CASCADE,db_constraint=False)
 
     
+class Sale(models.Model):
+    p_id = models.IntegerField('Product ID',primary_key=True)
+    p_type=models.CharField('Type',max_length=20)
+    company=models.CharField('Company',max_length=30)
+    category=models.CharField('Category',max_length=30)
+    quantity=models.IntegerField('Quantity')
+    price=models.FloatField('Price')
+    total_price=models.FloatField('Total Price')

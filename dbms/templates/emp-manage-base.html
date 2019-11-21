@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Store Management System
+        </title>
+        <meta charset="utf-8">
+        <meta name ="viewport" content="width=device-width, initial-scale=1,shrink-to-fit =no">
+         <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <style>
+                .fading-hover {
+                  text-decoration: none !important;
+                  background-color: rgb(51, 102, 255,0.6);
+                  transition: all 300ms ease-in-out
+                }
+                .fading-hover:hover {
+                  background-color: rgb(51, 102, 255,0.9);
+                }
+                .no_underline{
+                  text-decoration: none !important;
+                }
+                
+        </style>    
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> 
+    </head>
+
+
+    
+    <body style="background-color:#BED7D1;" >
+            <div class="jumbotron text-center bg-dark" style="opacity: 0.8;">
+                    <h1 class="display-4" style="color: beige; font-weight: bold; justify-content: center; align-items:center;">
+                        Employee Management
+                        <button class = "btn btn-lg btn-warning glyphicon glyphicon-home" style="float: right ;" onclick="window.location.href='/manager-home/';">Home</button>
+                         </h1>
+                
+                 
+                 <nav class="nav nav-lg nav-tabs nav-justified justify-content-center">
+                  <a class=" nav-link " href="./list" style="color: azure; font-size:x-large;">View Employee list</a>
+                  <a class=" nav-link" href="./mod" style="color: azure;font-size: x-large;">Edit or Delete Employee</a>
+                  <a class=" nav-link" href="./addrem" style="color: azure;font-size:x-large;">Add New Employee</a>
+                </nav>                 
+              </div>    
+        
+        <!--div class="col-lg-12 col-sm-12 col-md-12">
+        <div class="col-lg-4 col-sm-12 col-md-4" style="padding: 0.4em; text-align: center;">
+                <a href="./list" class="no_underline">
+                <div class="card fading-hover " style="height: 10rem">
+                    <div class="card-body">
+                        <h1 style="color: white; font-weight:bold;">View Employee List</h1> 
+                    </div>
+                </div>
+              </a>
+            </div>
+    
+            <div class="col-lg-4 col-sm-12 col-md-4" style="padding: 0.4em; text-align: center;">
+                <a href="./mod" class="no_underline">
+                <div class="card fading-hover " style="height: 10rem">
+                    <div class="card-body">
+                        <h1 style="color: white; font-weight:bold;">Edit/Delete Employee details</h1> 
+                    </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-4 col-sm-12 col-md-4" style="padding: 0.4em; text-align: center;">
+              <a href="./addrem" class="no_underline">
+                <div class="card fading-hover" style="height: 10rem"> 
+                    <div class="card-body">
+                        <h1 style="color: white; font-weight:bold;">Add Employee</h1>
+                    </div>
+                </div>
+              </a>
+            </div>    
+        </div-->
+        {% block content %}
+        {% endblock %}
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body> 
+</html>
