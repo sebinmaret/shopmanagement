@@ -1,21 +1,21 @@
 {% extends 'emp-manage-base.html' %}
 
 {%block content %}
-<style> 
-        body { 
-            animation: fadeInAnimation ease 0.5s; 
-            animation-iteration-count: 1; 
-            animation-fill-mode: forwards; 
-        } 
-        @keyframes fadeInAnimation { 
-            0% { 
-                opacity: 0; 
-            } 
-            100% { 
-                opacity: 1; 
-            } 
-        } 
-</style> 
+<style>
+        body {
+            animation: fadeInAnimation ease 0.5s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+        }
+        @keyframes fadeInAnimation {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+</style>
 
 <div class="container-fluid body" style="justify-content: center; display: flex; align-items: center;">
 <form action="" method="POST">
@@ -66,10 +66,10 @@
                 <label for ="address" style="color: white;"><b>Address:</b></label>
                 <input type = "string" name = "address" value={{row.address}} >
                 <br></br>
-                
 
 
-            <button name = "Delete" type="submit" class = "btn btn-warning glyphicon glyphicon-edit">Edit Employee</button>
+
+            <button name = "Edit" type="submit" class = "btn btn-warning glyphicon glyphicon-edit">Edit Employee</button>
             <button name = "Delete" type="submit" class = "btn btn-danger glyphicon glyphicon-trash">Remove Employee</button>
             </form>
         {% endfor %}

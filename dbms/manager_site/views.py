@@ -25,7 +25,7 @@ def home_detail_view(request):
 
 class ProfileView(TemplateView):
     template_name="templates/registration/base.html"
-    
+
 
 
 class SalesView(TemplateView):
@@ -80,9 +80,9 @@ def manager_supplier_view(request):
         cat=cat.title()
         print (cat)
         if(cat == "*"):
-            x=Supplier.objects.raw(" SELECT DISTINCT * FROM Shop_supplier JOIN  Shop_suppliercat ON Shop_supplier.s_id = Shop_suppliercat.s_id_id") 
-        else:   
-            x=Supplier.objects.raw(" SELECT DISTINCT * FROM Shop_supplier JOIN  Shop_suppliercat ON Shop_supplier.s_id = Shop_suppliercat.s_id_id WHERE Shop_suppliercat.category = %s",[cat]) 
+            x=Supplier.objects.raw(" SELECT DISTINCT * FROM Shop_supplier JOIN  Shop_suppliercat ON Shop_supplier.s_id = Shop_suppliercat.s_id_id")
+        else:
+            x=Supplier.objects.raw(" SELECT DISTINCT * FROM Shop_supplier JOIN  Shop_suppliercat ON Shop_supplier.s_id = Shop_suppliercat.s_id_id WHERE Shop_suppliercat.category = %s",[cat])
         for y in x:
             print(y.category)
         obj={
@@ -94,6 +94,7 @@ def manager_supplier_view(request):
     return render(request,"supplier-management.html",obj)
 
 def manager_supplier_modify_view(request):
+    obj={}
     if request.method=="POST":
         sidrem=request.POST.get('s_id_rem')
         if(sidrem is None):
@@ -109,11 +110,12 @@ def manager_supplier_modify_view(request):
             sname=request.POST.get('name')
             sname=sname.title()
             temp=Supplier.objects.raw("SELECT * FROM Shop_supplier WHERE Shop_supplier.s_id = %s",[sid])
+            if(sid<=0 or cno<=0):
+                obj['valerror']=1
+                return render(request,"manager_supplier_modify.html",obj)
             if(len(temp)>0):
-                obj={
-                    'error1':1
-                }
-                return render(request,"manager_supplier_modify.html",obj)        
+                obj['error1']=1
+                return render(request,"manager_supplier_modify.html",obj)
             c=connection.cursor()
             c.execute('INSERT INTO Shop_supplier VALUES (%s,%s,%s,%s)',[sid,add,cno,sname])
             x=SupplierCat.objects.raw("SELECT * FROM Shop_suppliercat GROUP BY Shop_suppliercat.s_id_id ")
@@ -124,7 +126,7 @@ def manager_supplier_modify_view(request):
                     if(max1<y.id):
                         max1=y.id
             max1=max1+1
-          
+
             for i in cat:
                 if i:
                     i=i.strip()
@@ -154,7 +156,7 @@ def manager_supplier_modify_view(request):
                 'success2':1
             }
 #        x=Supplier.objects.raw("INSERT INTO Shop_supplier VALUES  (%d,%s,%d,%s) ",[sid,add,cno,sname])
-        return render(request,"manager_supplier_modify.html",obj)    
+        return render(request,"manager_supplier_modify.html",obj)
     return render(request,"manager_supplier_modify.html",{})
 
 
@@ -165,9 +167,9 @@ def manager_stock_view(request):
         cat=cat.title()
         print (cat)
         if(cat == "*"):
-            x=Products.objects.raw(" SELECT Shop_products.p_id, Shop_products.price, Shop_products.typE, Shop_products.company, Shop_products.category, Shop_products.s_id_id, Shop_expirydetails.quantity AS expqty ,Shop_products.quantity, Shop_expirydetails.date FROM Shop_products LEFT JOIN Shop_ExpiryDetails ON Shop_Products.p_id = Shop_ExpiryDetails.p_id_id ORDER BY Shop_Products.p_id , Shop_Products.category , Shop_ExpiryDetails.date") 
-        else:   
-            x=Products.objects.raw(" SELECT Shop_products.p_id, Shop_products.price, Shop_products.typE, Shop_products.company, Shop_products.category, Shop_products.s_id_id, Shop_expirydetails.quantity AS expqty ,Shop_products.quantity, Shop_expirydetails.date FROM Shop_products LEFT JOIN Shop_ExpiryDetails ON Shop_Products.p_id = Shop_ExpiryDetails.p_id_id WHERE Shop_products.category = %s ORDER BY Shop_Products.p_id , Shop_Products.category , Shop_ExpiryDetails.date",[cat]) 
+            x=Products.objects.raw(" SELECT Shop_products.p_id, Shop_products.price, Shop_products.typE, Shop_products.company, Shop_products.category, Shop_products.s_id_id, Shop_expirydetails.quantity AS expqty ,Shop_products.quantity, Shop_expirydetails.date FROM Shop_products LEFT JOIN Shop_ExpiryDetails ON Shop_Products.p_id = Shop_ExpiryDetails.p_id_id ORDER BY Shop_Products.p_id , Shop_Products.category , Shop_ExpiryDetails.date")
+        else:
+            x=Products.objects.raw(" SELECT Shop_products.p_id, Shop_products.price, Shop_products.typE, Shop_products.company, Shop_products.category, Shop_products.s_id_id, Shop_expirydetails.quantity AS expqty ,Shop_products.quantity, Shop_expirydetails.date FROM Shop_products LEFT JOIN Shop_ExpiryDetails ON Shop_Products.p_id = Shop_ExpiryDetails.p_id_id WHERE Shop_products.category = %s ORDER BY Shop_Products.p_id , Shop_Products.category , Shop_ExpiryDetails.date",[cat])
         for j in x:
             print(vars(j))
 
@@ -175,15 +177,18 @@ def manager_stock_view(request):
           'table':x
         }
         return render(request,"stock-management.html",obj)
-    return render(request,"stock-management.html",{})  
+    return render(request,"stock-management.html",{})
 
-    
+
 def manager_stock_modify_view(request):
+    obj={}
     if request.method=="POST":
         pid1=request.POST.get('p_id1')
         if pid1 is not None:
             price1=request.POST.get('price1')
+            price1=int(price1)
             qty1=request.POST.get('qty1')
+            qty1=int(qty1)
             type1=request.POST.get('typE1')
             type1=type1.title()
             cat1=request.POST.get('cat1')
@@ -191,12 +196,15 @@ def manager_stock_modify_view(request):
             company1=request.POST.get('comp1')
             company1=company1.title()
             sid1=request.POST.get('s_id1')
+            sid1=int(sid1)
             exp1=request.POST.get('exp1')
             temp=Products.objects.raw("SELECT * FROM Shop_products WHERE Shop_products.p_id = %s",[pid1])
+
+            if(price1<0 or qty1<0 or sid1<=0):
+                obj['valerror']=1
+                return render(request,"manager_stock_modify.html",obj)
             if(len(temp)>0):
-                obj={
-                    'error2':1
-                }                
+                obj['error2']=1
                 return render(request,"manager_stock_modify.html",obj)
             print(company1)
             c=connection.cursor()
@@ -204,7 +212,7 @@ def manager_stock_modify_view(request):
             print("-----")
             print(type(exp1),len(exp1))
             if (exp1 is not None) and (exp1 != ""):
-                x=ExpiryDetails.objects.raw(" SELECT * ,count(*) AS count FROM  Shop_expirydetails ") 
+                x=ExpiryDetails.objects.raw(" SELECT * ,count(*) AS count FROM  Shop_expirydetails ")
                 max1=0
                 for y in x:
                     if (y.id is  not None) and (max1<y.id):
@@ -214,17 +222,25 @@ def manager_stock_modify_view(request):
             obj={
                 'success1':1
             }
-            return render(request,"manager_stock_modify.html",obj) 
+            return render(request,"manager_stock_modify.html",obj)
         else:
             pid=request.POST.get('p_id')
+            pid=int(pid)
             qty=request.POST.get('qty')
+            qty=int(qty)
             date1=request.POST.get('date')
             temp=Products.objects.raw("SELECT * FROM Shop_products WHERE Shop_products.p_id = %s",[pid])
+            if(parsedate1(date1) is None):
+                obj['valerror']=1
+                return render(request,"manager_stock_modify.html",obj)
+            if(pid<0 or qty<0):
+                obj['valerror']=1
+                return render(request,"manager_stock_modify.html",obj)
             if(len(temp)==0):
                 obj={
                     'error1':1
-                }                
-                return render(request,"manager_stock_modify.html",obj) 
+                }
+                return render(request,"manager_stock_modify.html",obj)
             c=connection.cursor()
             c.execute('UPDATE Shop_products SET quantity = quantity + %s WHERE p_id = %s',[qty,pid])
             transaction.commit()
@@ -235,7 +251,7 @@ def manager_stock_modify_view(request):
                 'success2':1
                 }
                 return render(request,"manager_stock_modify.html",obj)
-            x=ExpiryDetails.objects.raw(" SELECT * ,count(*) AS count FROM  Shop_expirydetails ") 
+            x=ExpiryDetails.objects.raw(" SELECT * ,count(*) AS count FROM  Shop_expirydetails ")
             max1=0
             for y in x:
                 if(y.id is not None and max1<y.id):
@@ -251,7 +267,7 @@ def manager_stock_modify_view(request):
             obj={
                 'success2':1
             }
-            return render(request,"manager_stock_modify.html",obj) 
+            return render(request,"manager_stock_modify.html",obj)
     return render(request,"manager_stock_modify.html",{})
 
 def manager_finance_view(request):
@@ -260,7 +276,7 @@ def manager_finance_view(request):
         if sdate is not None:
             sdate=parsedate1(sdate)
             edate=parsedate1(request.POST.get('edate'))
-            x=SalesRecord.objects.raw(" SELECT Shop_salesrecord.r_id,Shop_salesrecord.date,Shop_salesrecord.total_price FROM Shop_salesrecord ") 
+            x=SalesRecord.objects.raw(" SELECT Shop_salesrecord.r_id,Shop_salesrecord.date,Shop_salesrecord.total_price FROM Shop_salesrecord ")
             totalrev=0
             print(dir(x))
             for y in x:
@@ -273,7 +289,7 @@ def manager_finance_view(request):
                 'sdate1':sdate.date(),
                 'edate1':edate.date()
             }
-            return render(request,"manager_finances.html",obj) 
+            return render(request,"manager_finances.html",obj)
         else:
             sdate_in=parsedate1(request.POST.get('sdate1'))
             edate_in=parsedate1(request.POST.get('edate1'))
@@ -299,12 +315,14 @@ def manager_finance_view(request):
                 'sdate1':sdate_in.date(),
                 'edate1':edate_in.date()
             }
-            return render(request,"manager_finances.html",obj) 
+            return render(request,"manager_finances.html",obj)
 
-    return render(request,"manager_finances.html",{}) 
+    return render(request,"manager_finances.html",{})
 
 
 def parsedate1(input12):
+    if("-" not in input12):
+        return None
     input12=input12.split("-")
     for i in input12:
         i=i.strip()
@@ -323,7 +341,7 @@ def manager_record_view(request):
         if sdate is not None:
             sdate=parsedate1(sdate)
             edate=parsedate1(request.POST.get('edate'))
-            x=SalesRecord.objects.raw(" SELECT * FROM Shop_salesrecord ") 
+            x=SalesRecord.objects.raw(" SELECT * FROM Shop_salesrecord ")
             for y in x:
                 print(y.date)
                 y.date=parsedate1(y.date)
@@ -334,11 +352,11 @@ def manager_record_view(request):
                 'startdate': sdate,
                 'enddate': edate
             }
-            return render(request,"manager_record.html",obj) 
+            return render(request,"manager_record.html",obj)
         else:
             sdate1=parsedate1(request.POST.get('sdate1'))
             edate1=parsedate1(request.POST.get('edate1'))
-            x=LogRecord.objects.raw(" SELECT * FROM Shop_logrecord") 
+            x=LogRecord.objects.raw(" SELECT * FROM Shop_logrecord")
 
             for y in x:
                 if y.date is not None:
@@ -350,7 +368,7 @@ def manager_record_view(request):
                 'startdate': sdate1,
                 'enddate': edate1
             }
-            return render(request,"manager_record.html",obj) 
+            return render(request,"manager_record.html",obj)
 
 
     return render(request,"manager_record.html",{})
@@ -369,20 +387,20 @@ def manager_wagecal_view(request):
             obj={
                 'error1':1
             }
-            return render(request,"manager_wagecal.html",obj)               
+            return render(request,"manager_wagecal.html",obj)
         for i in z:
             wage=i.wage
         sum1=0
         total_wrk_hrs=0
         for i in x:
+            if i.sign_out is not None:
+                if parsedate1(i.date) >= sdate and parsedate1(i.date) <=edate:
+                    start=parsetime1(i.sign_in)
+                    end=parsetime1(i.sign_out)
 
-            if parsedate1(i.date) >= sdate and parsedate1(i.date) <=edate:
-                start=parsetime1(i.sign_in)
-                end=parsetime1(i.sign_out)
-
-                work_hrs=((end-start).seconds)/3600
-                total_wrk_hrs=total_wrk_hrs+work_hrs
-                sum1=sum1 + work_hrs * wage
+                    work_hrs=((end-start).seconds)/3600
+                    total_wrk_hrs=total_wrk_hrs+work_hrs
+                    sum1=sum1 + work_hrs * wage
         obj={
             'value':sum1,
             'empid':eid2,
@@ -391,7 +409,7 @@ def manager_wagecal_view(request):
             'total_hrs':total_wrk_hrs
         }
 
-    return render(request,"manager_wagecal.html",obj)   
+    return render(request,"manager_wagecal.html",obj)
 
 def parsetime1(input12):
     input12=input12.split(':')
@@ -412,7 +430,7 @@ def EmployeeView(request):
         'enter':0,
         'test':0
     }
-  
+
 
     if request.method=="POST":
         eid=request.POST.get('eid')
@@ -424,33 +442,33 @@ def EmployeeView(request):
         print (eid)
         if(eid == '0'):
             print("HI ALL")
-            x=Employee.objects.raw(" SELECT  * FROM Shop_employee") 
-        elif(eid!=''):   
-            x=Employee.objects.raw(" SELECT  * FROM Shop_employee WHERE Shop_employee.e_id = %s",[eid]) 
+            x=Employee.objects.raw(" SELECT  * FROM Shop_employee")
+        elif(eid!=''):
+            x=Employee.objects.raw(" SELECT  * FROM Shop_employee WHERE Shop_employee.e_id = %s",[eid])
 
         if(fname == '0'):
             print("HI ALL")
-            x=Employee.objects.raw(" SELECT  * FROM Shop_employee") 
-        elif(fname != ''):   
-            x=Employee.objects.raw(" SELECT  * FROM Shop_employee WHERE Shop_employee.f_name = %s",[fname]) 
+            x=Employee.objects.raw(" SELECT  * FROM Shop_employee")
+        elif(fname != ''):
+            x=Employee.objects.raw(" SELECT  * FROM Shop_employee WHERE Shop_employee.f_name = %s",[fname])
 
 
         if(lname == '0'):
             print("HI ALL")
-            x=Employee.objects.raw(" SELECT  * FROM Shop_employee") 
-        elif(lname!=''):   
-            x=Employee.objects.raw(" SELECT  * FROM Shop_employee WHERE Shop_employee.l_name = %s",[lname]) 
+            x=Employee.objects.raw(" SELECT  * FROM Shop_employee")
+        elif(lname!=''):
+            x=Employee.objects.raw(" SELECT  * FROM Shop_employee WHERE Shop_employee.l_name = %s",[lname])
 
         if(wage == '0'):
             print("HI ALL")
-            x=Employee.objects.raw(" SELECT  * FROM Shop_employee") 
-        elif(wage!=''):   
+            x=Employee.objects.raw(" SELECT  * FROM Shop_employee")
+        elif(wage!=''):
             x=Employee.objects.raw(" SELECT  * FROM Shop_employee WHERE Shop_employee.wage = %s",[wage])
         '''
         if(address == '0'):
             print("HI ALL")
-            x=Employee.objects.raw(" SELECT  * FROM Shop_employee") 
-        elif(address!=''):   
+            x=Employee.objects.raw(" SELECT  * FROM Shop_employee")
+        elif(address!=''):
             x=Employee.objects.raw(" SELECT  * FROM Shop_employee WHERE Shop_employee.address like '%% %s %%' ",[address])
         #for y in x:
          #   print(y.category)
@@ -485,7 +503,7 @@ def edit_employee(request):
                 with connection.cursor() as cursor:
                     cursor.execute('UPDATE Shop_employee set f_name = %s, l_name= %s, wage= %s, contact =%s, address= %s where e_id = %s',[f_name,l_name,wage,contact,address,id2])
                 obj= Employee.objects.raw('SELECT * FROM Shop_employee where Shop_employee.e_id = %s',[id])
-                args={'obj': obj,'enter':1,'id':id}
+                args={'obj': obj,'enter':1,'id':id2}
 
             elif "Delete" in request.POST:
                 c = connection.cursor()
@@ -493,7 +511,7 @@ def edit_employee(request):
                 obj= Employee.objects.raw('SELECT * FROM Shop_employee where Shop_employee.e_id = %s',[id])
                 args={'obj': obj,'enter':1,'id':id}
 
-        
+
     return render(request,'emp-management/mod.html',args)
 
 def showform(request):
@@ -509,12 +527,12 @@ def showform(request):
 
     else:
         form = AddEmployee()
-        
+
     context = {'form':form ,'error':error}
     return render(request,"emp-management/addrem.html",context)
 @csrf_exempt
 def logform(request):
-    
+
     c = connection.cursor()
     args ={
         'error_id':0
@@ -553,6 +571,15 @@ def logform(request):
 
     print(args)
     return render(request,'log.html',args)
+@csrf_exempt
+def logactive(request):
+    obj={
+        'value':"this is test"
+        }
+    x=LogRecord.objects.raw("SELECT *,count(*) AS count FROM Shop_logrecord WHERE Shop_logrecord.sign_out is NULL")
+    y=x[0]
+    obj['value']=y.count
+    return render(request,'logdata.html',obj)
 
 
 

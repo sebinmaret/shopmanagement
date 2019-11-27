@@ -11,7 +11,7 @@ class Employee(models.Model):
 
 
 class LogRecord(models.Model):
-    
+
     sign_out = models.CharField('Sign Out', max_length=5,null=True)
     date = models.CharField('Date',max_length=10)
     sign_in = models.CharField('Sign in', max_length=5)
@@ -27,7 +27,7 @@ class Supplier(models.Model):
 class SupplierCat(models.Model):
     category = models.CharField('Category',max_length=20)
     s_id = models.ForeignKey('Supplier',on_delete = models.CASCADE)
-    
+
     class Meta:
         unique_together= ['category','s_id']
 
@@ -41,7 +41,7 @@ class Products(models.Model):
     s_id = models.ForeignKey('Supplier',on_delete = models.CASCADE)
 
 class ExpiryDetails(models.Model):
-    
+
     date = models.CharField('Date',max_length=10,null=True)
     quantity = models.IntegerField('Quantity')
     p_id = models.ForeignKey('Products',on_delete = models.CASCADE)
@@ -55,9 +55,9 @@ class SalesRecord(models.Model):
     quantity= models.IntegerField('Quantity')
     p_id = models.ForeignKey('Products',on_delete = models.CASCADE,db_constraint=False)
 
-    
+
 class Sale(models.Model):
-    p_id = models.IntegerField('Product ID',primary_key=True)
+    p_id = models.IntegerField('Product ID')
     p_type=models.CharField('Type',max_length=20)
     company=models.CharField('Company',max_length=30)
     category=models.CharField('Category',max_length=30)

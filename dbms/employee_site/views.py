@@ -6,8 +6,12 @@ from datetime import datetime,date
 def employee_sales_view(request):
 	x= Sale.objects.raw(" SELECT * FROM Shop_sale")
 	gtotal=0
+	num_sale=0
 	for l in x:
 		gtotal=gtotal+l.total_price
+		print(vars(l))
+		num_sale=num_sale+1
+	num_sale=num_sale+1
 	obj={
 		'table':x,
 		'gtotal':gtotal
@@ -42,17 +46,17 @@ def employee_sales_view(request):
 					break
 				if y.quantity<=tempqty:
 					tempqty=tempqty-y.quantity
-					
+
 					c.execute('DELETE FROM Shop_expirydetails WHERE Shop_expirydetails.p_id_id = %s AND Shop_expirydetails.date = %s',[y.p_id.p_id,y.date])
 				else:
 					tempqty=y.quantity-tempqty
-		
+
 					c.execute('UPDATE Shop_expirydetails SET quantity = %s WHERE p_id_id = %s AND date = %s',[tempqty,y.p_id.p_id,y.date])
 					transaction.commit()
 					break
 			c.execute('UPDATE Shop_products SET quantity = quantity - %s WHERE p_id = %s',[qty,pid])
 			transaction.commit()
-			c.execute('INSERT INTO Shop_sale VALUES (%s,%s,%s,%s,%s,%s,%s) ',[pid,name,company,category,qty,price,totalprice])
+			c.execute('INSERT INTO Shop_sale VALUES (%s,%s,%s,%s,%s,%s,%s,%s) ',[num_sale,name,company,category,qty,price,totalprice,pid])
 			x=SalesRecord.objects.raw("SELECT * FROM Shop_salesrecord")
 			rid=0
 			for y in x:
@@ -71,7 +75,7 @@ def employee_sales_view(request):
 				'gtotal':gtotal
 				}
 			obj['success1']=1
-			return render(request,"employee_sales.html",obj)		
+			return render(request,"employee_sales.html",obj)
 		else:
 			total=0
 			x=Sale.objects.raw("SELECT * FROM Shop_sale")
@@ -85,7 +89,7 @@ def employee_sales_view(request):
 				'gtotal':0
 				}
 			obj['total1']=total
-			return render(request,"employee_sales.html",obj)		
+			return render(request,"employee_sales.html",obj)
 	return render(request,"employee_sales.html",obj)
 
 def parsedate1(input12):

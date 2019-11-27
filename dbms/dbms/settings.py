@@ -25,7 +25,7 @@ SECRET_KEY = '66h!#+rg3*rpbw6=m4pnsd+#ftrs*+!e=ra2bkw=#ulh2tt0p='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0','192.168.43.110','127.0.0.1']
+ALLOWED_HOSTS = ['0.0.0.0','192.168.43.110','127.0.0.1','sebin44.pythonanywhere.com']
 
 
 # Application definition
@@ -55,7 +55,7 @@ ROOT_URLCONF = 'dbms.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['/home/sebin44/sebin44.pythonanywhere.com/dbms/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,3 +119,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

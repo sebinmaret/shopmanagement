@@ -18,7 +18,7 @@ from django.urls import path
 from manager_site.forms import EditEmployee
 from django.contrib.auth.views import LoginView,TemplateView
 from manager_site import views
-from manager_site.views import ProductView,SupplierView,SalesView,LogView,EmployeeView,ProfileView,home_detail_view,manager_home_view,manager_emp_view,manager_signin_view,manager_supplier_view,manager_supplier_modify_view,manager_stock_view,manager_stock_modify_view,manager_finance_view,manager_record_view,manager_wagecal_view,showform,logform
+from manager_site.views import ProductView,SupplierView,SalesView,LogView,EmployeeView,ProfileView,home_detail_view,manager_home_view,manager_emp_view,manager_signin_view,manager_supplier_view,manager_supplier_modify_view,manager_stock_view,manager_stock_modify_view,manager_finance_view,manager_record_view,manager_wagecal_view,showform,logform,logactive
 from employee_site.views import employee_sales_view,employee_viewall_view
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -45,4 +45,5 @@ urlpatterns = [
     path('employee-home/sales/',employee_sales_view),
     path('employee-home/sales/view/',employee_viewall_view),
     path('manager-home/wage-calculation/', manager_wagecal_view),
+    path('log/active/', logactive),
 ]
